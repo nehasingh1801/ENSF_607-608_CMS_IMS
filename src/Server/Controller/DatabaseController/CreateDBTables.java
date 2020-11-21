@@ -34,13 +34,18 @@ public void createCustomerTable() {
 	 * varchar(7), phone_number varchar(12), customer_type char(10), primary key
 	 * (customer_id) );
 	 */
+	String sql_temp = "DROP TABLE IF EXISTS CUSTOMER";
+	 
+    
 	String sql = "create table customer " + "(customer_id integer not null, " + "fname varchar(20) not null, "
 			+ "lname varchar(20) not null, " + "address varchar(50), " + "postal_code varchar(7), "
 			+ "phone_number varchar(12), " + "customer_type char(10), " + "primary key (customer_id)\r\n"
 			+ "		) ";
 
 	try {
+		
 		myStmt = myDriver.getMyConn().createStatement();
+		myStmt.executeUpdate(sql_temp);
 		myStmt.executeUpdate(sql);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block

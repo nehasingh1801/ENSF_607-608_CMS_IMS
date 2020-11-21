@@ -1,5 +1,10 @@
 package Server.Controller.ModelController;
 
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -68,13 +73,20 @@ public class ServerCustomerController implements Runnable {
 		return customer;
 
 	}
+	
+	public Customer testCustomerObject() {
+		
+		customer = new Customer(1, "sanyam","empty", "st no0", "23123", "152116", "res");
+		return customer;
+		
+	}
 
 
 
 	@Override
 	public void run() {
 		String response = "";
-		System.out.println("CustomerController instantiated");
+		System.out.println("CustomerController instantiated here");
 //		try {
 //			response = socketIn.readLine();
 //			System.out.println("Response from client: " + response);
@@ -94,7 +106,7 @@ public class ServerCustomerController implements Runnable {
 //		}
 	}
 	
-	public void run_temp() {
+	public void run_temp() throws JsonProcessingException {
 		String response = "";
 		System.out.println("in run_temp");
 		try {
@@ -108,6 +120,7 @@ public class ServerCustomerController implements Runnable {
 		}
 
 		if (response != null) {
+			System.out.println("I am inside response");
 			try {
 				switchBoard(choice);
 			} catch (ClassNotFoundException e) {
@@ -132,20 +145,26 @@ public class ServerCustomerController implements Runnable {
 		
 	}
 
-	public void switchBoard(int choice) throws ClassNotFoundException {
+	public void switchBoard(int choice) throws ClassNotFoundException, JsonProcessingException {
 
 		switch (choice) {
 
 		case 1:
 			// get customer based on id
-			customer = getCustomerObject();
+			customer = testCustomerObject();
 			System.out.println("Sending getcustomer search to client");
+			//String jsonCustomer = JSON.stringify(customer);
+			ObjectMapper objectMapper = new ObjectMapper();
+			String jsonCustomer = objectMapper.writeValueAsString(customer);
+			System.out.println(jsonCustomer);
 			int id = 1; //customer.getCustomerID()
-			customer = dbController.getDbManager().getCustomerPreparedStatementId(id);
-			System.out.println(customer);
+//			customer = dbController.getDbManager().getCustomerPreparedStatementId(id);
+//			System.out.println(customer);
 			try {
-				serverOutputStream = new ObjectOutputStream(socket.getOutputStream());
-				serverOutputStream.writeObject(customer);
+				//serverOutputStream = new ObjectOutputStream(socket.getOutputStream());
+				//serverOutputStream.writeObject((Object)customer);
+				socketOut = new PrintWriter(socket.getOutputStream(), true);
+				socketOut.println(jsonCustomer);
 			} catch (IOException e) {
 
 				e.printStackTrace();

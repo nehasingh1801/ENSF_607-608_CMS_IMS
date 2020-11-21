@@ -37,7 +37,7 @@ public class ClientController {
 		}
 	}
 	
-	public void runClient() throws ClassNotFoundException {
+	public void runClient() throws ClassNotFoundException, IOException {
 		
 		while(isConnected) {
 			String response = "";
@@ -47,18 +47,17 @@ public class ClientController {
 				socketOut.println("1");
 				socketOut.flush();
 				isConnected= false;
-//				serverInputStream = new ObjectInputStream(aSocket.getInputStream());
-//				customer = (Customer) serverInputStream.readObject();
-//				System.out.println(" Customer is " + customer.getCustomerID() + " " +customer.getFirstName());
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		//}
-		
+				//response = socketIn.readLine();
+				//System.out.println("I got the" + response);
+				
+				serverInputStream = new ObjectInputStream(aSocket.getInputStream());
+				customer = (Customer) serverInputStream.readObject();
+				System.out.println("I received the customer");
+				System.out.println(" Customer is " + customer.getCustomerID() + " " +customer.getFirstName());
+			}
 		}
 		
-	}
+		
 public static void main(String[] args) throws ClassNotFoundException {
 	ClientController cc = new ClientController("localhost", 9090);
 }

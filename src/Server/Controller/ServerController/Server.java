@@ -30,6 +30,7 @@ public class Server {
 		try {
 			// Server socket accepts the port as a parameter
 			serverSocket = new ServerSocket(9090);
+			
 			// System.out.println("Server is running!");
 			pool = Executors.newFixedThreadPool(20);
 		} catch (IOException e) {
@@ -47,8 +48,6 @@ public class Server {
 				socket = serverSocket.accept();
 				System.out.println("Server is running");
 				
-				
-			
 				DBController dbController = new DBController();
 				System.out.println("dbController instantiated");
 				ServerCustomerController customerController = new ServerCustomerController(socket, dbController);
