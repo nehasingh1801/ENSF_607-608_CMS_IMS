@@ -1,4 +1,4 @@
-package Server.DatabaseController;
+package Server.Controller.DatabaseController;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ public class Driver implements 	JDBCredentials{
 		
 		try {
 
-			setMyConn(DriverManager.getConnection(DB_URL, USERNAME, PASSWORD));
+			setMyConn(DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory", "root", "password"));
 			System.out.println("Connected to DB...");
 			
 		} catch (SQLException e) {

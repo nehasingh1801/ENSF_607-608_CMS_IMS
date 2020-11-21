@@ -42,20 +42,24 @@ public class ClientController {
 		while(isConnected) {
 			String response = "";
 			
-			try {
-				serverInputStream = new ObjectInputStream(aSocket.getInputStream());
-				customer = (Customer) serverInputStream.readObject();
-				System.out.println(" Customer is " + customer.getCustomerID() + " " +customer.getFirstName());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+				System.out.println("sending 1 to server");
+				socketOut.println("1");
+				socketOut.flush();
+				isConnected= false;
+//				serverInputStream = new ObjectInputStream(aSocket.getInputStream());
+//				customer = (Customer) serverInputStream.readObject();
+//				System.out.println(" Customer is " + customer.getCustomerID() + " " +customer.getFirstName());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		//}
+		
 		}
-		
-		
 		
 	}
 public static void main(String[] args) throws ClassNotFoundException {
-	ClientController cc = new ClientController("local host", 9090);
+	ClientController cc = new ClientController("localhost", 9090);
 }
 }
