@@ -33,6 +33,7 @@ public class MainViewController implements ActionListener {
 
 		else if (e.getSource() == view.getToolView()) {
 			System.out.println("ToolView");
+			
 			//modelControllerTool = new ModelControllerTool();
 			//modelControllerTool.setToolViewController(new ToolViewController());
 		}

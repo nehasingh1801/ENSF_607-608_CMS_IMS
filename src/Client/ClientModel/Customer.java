@@ -1,6 +1,8 @@
 package Client.ClientModel;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 	
 	private int customerID;
 	private String firstName;
@@ -11,6 +13,7 @@ public class Customer {
 	private String customerType;
 	
 	public Customer(int customerID, String firstName, String lastName, String address, String postalCode, String phoneNumber, String customerType) {
+		
 		this.customerID = customerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
